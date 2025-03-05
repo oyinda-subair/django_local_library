@@ -178,3 +178,5 @@ cython_debug/
 
 # Unnecessary files
 .DS_Store
+.vscode
+**/**/.DS_Store
