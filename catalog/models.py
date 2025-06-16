@@ -1,6 +1,7 @@
 import uuid  # Required for unique book instances
 from django.db import models
 
+
 # Used in get_absolute_url() to get URL for specified ID
 from django.urls import reverse
 
@@ -65,6 +66,12 @@ class Book(models.Model):
         """Returns the URL to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
 
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = 'Genre'
+
 
 class BookInstance(models.Model):
 
@@ -96,6 +103,12 @@ class BookInstance(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.id} ({self.book.title})'
+
+    def display_book_title(self):
+        """Create a string for the Book Title. This is required to display tittle in Admin."""
+        return self.book.title
+
+    display_book_title.short_description = 'Book'
 
 
 class Author(models.Model):
